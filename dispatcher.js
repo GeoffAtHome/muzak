@@ -30,7 +30,7 @@ class Dispatcher {
         var squeezeserver = new SqueezeServer(config.squeezeserverURL, config.squeezeserverPort, config.squeezeServerUsername, config.squeezeServerPassword);
         squeezeserver.on('register', function() {
             console.log("SqueezeServer registered");
-            this.startInteractiveSession(callback);
+            Dispatcher.startInteractiveSession(callback);
         });
     }
 
