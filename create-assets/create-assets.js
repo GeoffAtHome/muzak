@@ -12,7 +12,6 @@
 //  Integration with the squeeze server
 
 const fs = require('fs');
-const _ = require('lodash');
 const SqueezeServer = require('squeezenode-lordpengwin');
 
 // Configuration
@@ -21,7 +20,10 @@ const defaultAssets = require('./default-assets.js');
 var server = require('../ssh-tunnel')();
 
 // Add the players from config to the defaultAssets
-defaultAssets.languageModel.types.push({ "name": "PLAYERS", "values": getArray(config.players) });
+defaultAssets.languageModel.types.push({
+    "name": "PLAYERS",
+    "values": getArray(config.players)
+});
 
 /**
  * Check if the albums is valid from the point of view if being in an utterance
@@ -66,10 +68,22 @@ function uniq(a, slot, remove) {
         }
     }
     // Remove duplicates
-    var unified = _.uniqWith(array, comparator);
+    var unified = uniqWith(array, comparator);
 
     return unified;
 
+}
+
+function uniqWith(array, comparator) {
+    let resArr = [];
+    array.filter(function (item) {
+        let index = resArr.findIndex(x => comparator(x, item));
+        if (index <= -1) {
+            resArr.push(item);
+        }
+        return null;
+    });
+    return resArr;
 }
 
 function comparator(a, b) {
@@ -85,7 +99,7 @@ function callback(response) {
 
 function dumpToFile(slot, reply, bundle) {
     return new Promise(
-        function(resolve, reject) {
+        function (resolve, reject) {
             if (!reply.ok) {
                 console.log("Failed to get " + slot + " from server");
                 reject(reply);
@@ -94,7 +108,10 @@ function dumpToFile(slot, reply, bundle) {
             // Make results unique
             var result = uniq(reply.result, slot, bundle.remove);
 
-            var values = { "name": slot.toUpperCase(), "values": getArray(result) };
+            var values = {
+                "name": slot.toUpperCase(),
+                "values": getArray(result)
+            };
             bundle.assets.languageModel.types.push(values);
 
             // Dump out to speech assets
@@ -116,10 +133,31 @@ function writeAssets(assets) {
 }
 
 function getArray(a) {
-    var output = [];
+    let output = [];
+    let index = 0;
     for (let item of a) {
-        if (item != "") {
-            output.push({ "id": null, "name": { "value": item, "synonyms": [] } });
+        if (typeof item == 'string') {
+            if (item != "") {
+                output.push({
+                    "id": index.toString(),
+                    "name": {
+                        "value": item,
+                        "synonyms": []
+                    }
+                });
+                index++;
+            }
+        } else {
+            if (item[0] != "") {
+                output.push({
+                    "id": index.toString(),
+                    "name": {
+                        "value": item[0],
+                        "synonyms": []
+                    }
+                });
+                index++;
+            }
         }
     }
     return output;
@@ -127,8 +165,8 @@ function getArray(a) {
 
 function getResults(slot) {
     return new Promise(
-        function(resolve, reject) {
-            var dumpResponse = function(reply) {
+        function (resolve, reject) {
+            var dumpResponse = function (reply) {
                 if (reply.ok) {
                     resolve(reply);
                 } else {
@@ -142,15 +180,18 @@ function getResults(slot) {
 // Create a SqueezeServer object and connect to the server
 
 var squeezeserver = new SqueezeServer(config.squeezeserverURL, config.squeezeserverPort, config.squeezeServerUsername, config.squeezeServerPassword);
-squeezeserver.on('error', function(err) {
+squeezeserver.on('error', function (err) {
     console.error('Something bad happened:', err);
 });
 
-squeezeserver.on('register', function() {
+squeezeserver.on('register', function () {
 
     var bundle = {
         'assets': defaultAssets,
-        'remove': { 'rxRemove': new RegExp(config.regex), 'ignore': config.ignore }
+        'remove': {
+            'rxRemove': new RegExp(config.regex),
+            'ignore': config.ignore
+        }
     };
 
     // Include invocation name from config file
