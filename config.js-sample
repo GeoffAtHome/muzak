@@ -5,10 +5,10 @@ var config = {};
 // The connection properties for the squeezebox server. This server must be accessible from the Internet so it should
 // be protected by basic authentication. If it is not protected the username and password can be null.
 
-config.squeezeserverURL = "http://yourdomain.com";
+config.squeezeserverURL = 'http://yourdomain.com';
 config.squeezeserverPort = 9000;
-config.squeezeServerUsername = "your username";
-config.squeezeServerPassword = "your password";
+config.squeezeServerUsername = 'your username';
+config.squeezeServerPassword = 'your password';
 
 // If you do not want to use ssh ssh_tunnel can be null
 
@@ -22,16 +22,19 @@ config.ssh_tunnel = {
     dstAddr: 'your ssh destination address'
 };
 
+// Locale for languauge resource
+config.locale = 'en-GB'
+
 // List the name of your squeezebox players 
-config.players = [ "Player one", "Player two", "Player three" ];
+config.players = [ 'Player one', 'Player two', 'Player three' ];
 
 // Invocation name to invoke intent
-config.invocationName = "ask muzak";
+config.invocationName = 'muzak';
 
 // RegEx expression to ignore in create-assets. These here is 'unknown' and 'untitled'. The /i is to make it case insensitive.
 config.regex = /unknown|untitled/i;
 
 // List of other words to ignore. These are words that will not be handled by Alexa as speech assets.
-config.ignore = ["<Undefined>", "アリシア・キーズ", "流行音乐", "ＢＬＩＮＫ　１８２"];
+config.ignore = ['<Undefined>', 'アリシア・キーズ', '流行音乐', 'ＢＬＩＮＫ　１８２'];
 
 module.exports = config;

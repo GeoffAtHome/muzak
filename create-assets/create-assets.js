@@ -12,15 +12,15 @@
 //  Integration with the squeeze server
 
 const fs = require('fs');
-const SqueezeServer = require('squeezenode-lordpengwin');
+const SqueezeServer = require('./../lambda/custom/node_modules/squeezenode-lordpengwin');
 
 // Configuration
 const config = require('./../config');
 const defaultAssets = require('./default-assets.js');
-var server = require('../ssh-tunnel')();
+var server = require('./../lambda/custom/ssh-tunnel')(config);
 
 // Add the players from config to the defaultAssets
-defaultAssets.languageModel.types.push({
+defaultAssets.interactionModel.languageModel.types.push({
     "name": "PLAYERS",
     "values": getArray(config.players)
 });
@@ -112,11 +112,17 @@ function dumpToFile(slot, reply, bundle) {
                 "name": slot.toUpperCase(),
                 "values": getArray(result)
             };
-            bundle.assets.languageModel.types.push(values);
+            bundle.assets.interactionModel.languageModel.types.push(values);
 
             // Dump out to speech assets
+            var dir = './lambda/custom/info/';
+
+            if (!fs.existsSync(dir)) {
+                fs.mkdirSync(dir);
+            }
+
             var text = 'module.exports = ' + JSON.stringify(result, null, 2) + ';';
-            fs.writeFile('./info/' + slot + '.js', text, 'utf8', callback);
+            fs.writeFile(dir + slot + '.js', text, 'utf8', callback);
             resolve(reply);
         }
     );
@@ -124,12 +130,12 @@ function dumpToFile(slot, reply, bundle) {
 
 
 function writeAssets(assets) {
-    var dir = './speechAssets/';
+    var dir = './models/';
 
     if (!fs.existsSync(dir)) {
         fs.mkdirSync(dir);
     }
-    fs.writeFile(dir + 'speechAssets.json', JSON.stringify(assets, null, 2), 'utf8', callback);
+    fs.writeFile(dir + config.locale + '.json', JSON.stringify(assets, null, 2), 'utf8', callback);
 }
 
 function getArray(a) {
@@ -195,7 +201,7 @@ squeezeserver.on('register', function () {
     };
 
     // Include invocation name from config file
-    bundle.assets.languageModel.invocationName = config.invocationName;
+    bundle.assets.interactionModel.languageModel.invocationName = config.invocationName;
 
     // Get a list of the albums on the server and print it out in the form of an utterance
     getResults('albums')

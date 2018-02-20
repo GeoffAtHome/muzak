@@ -1,7 +1,7 @@
-Muzak
-=====
+Squeezebox
+==========
 
-Muzak is a skill for the Amazon Echo that provides control over a Logitech (Squeezebox) Media Server.
+Squeezebox is a skill for the Amazon Echo that provides control over a Logitech (Squeezebox) Media Server.
 
 How To Use
 ----------
@@ -10,25 +10,17 @@ How To Use
 
 * Copy the provided `config.js-sample` file and enter the required values to allow the skill to connect to your squeezebox server. Update the players array with the name of your Squeezebox players. Save as `config.js`.
 * This should include the URL and credentials for your Logitech Media Server and the App ID of the Alexa skill created above
-* Run `npm install` to download npm dependencies.
-* Run `create.cmd` to produce speechAssets/speechAssets.json and to create the Dynamo database to persist player name across sessions.
-* Create an Alexa skill to use to connect to your server.
-* Use the speechAssets.json to configure you Alexa Skiil via the Skill Builder Beta. Drag and drop the file on the code editor.
+* Change directory to lambda/custom and run `npm install` to download npm dependencies.
+* Switch back to the root directory and run `create.cmd` to produce models/{locale}.json, lambda/custom/info and to create the Dynamo database to persist player name across sessions.
 
 
 ### Publish the Skill
 
-#### With Claudia.js
-* Set up your AWS credentials following [the instructions here](https://claudiajs.com/tutorials/installing.html#configuring-access-credentials).
-* Run `claudia create --region us-east-1 --handler muzak.handler`
-* **Note**: If you already have an existing Lambda function for muzak, you can pass the name of your function to `claudia create` using the `--name` parameter.
-* You can publish future code changes by simply executing `claudia update --name muzak --region us-east-1 --handler muzak.handler`.
-* A copy of this command is in `update.cmd`. Edit this file to meet your requirements.
-
-#### Manually
-* Create a function in Amazon Lambda
-* In the muzak top level directory Zip up the files to upload to Lambda
-  zip -r muzak.zip muzak.js config.js node_modules
+#### With ask-cli
+* See https://www.youtube.com/watch?v=13-tCdh8Y_E&feature=youtu.be for details of ask-cli
+* Run `ask init` to setup you account credentials
+* Set up `.ask\config` for your `skill_id` and `endpoint/uri`
+* Run `ask deploy` to publish the skill and Lambda functions
 
 ### Commands:
 
@@ -61,7 +53,7 @@ How To Use
 
 An interactive mode is supported where multiple commands may be issued in one session. The target player is remembered between requests so that it does not have to be specified. e.g.
 
-* "Alexa open muzak"
+* "Alexa open squeezebox"
 * "select player1"
 * "play"
 * "set volume to 25"

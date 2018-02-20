@@ -12,17 +12,11 @@ target/
 
 # NPM
 node_modules/
-
-# Other
-muzak.zip
-claudia.json
-config.js
-info/artist.js
-info/album.js
-info/genre.js
-info/title.js
-info/playlist.js
-speechAssets/speechAssets.json
-
 package-lock.json
 
+# Files create by Create-assets
+models/
+lambda/custom/info
+
+# Do not preserve private config file
+config.js

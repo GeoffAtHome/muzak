@@ -1,3 +1,4 @@
+copy .\config.js .\lambda\custom\
 node ./create-assets/create-assets.js
-node ./persist/delete-database.js
-node ./persist/create-database.js
+node ./lambda/custom/persist/delete-database.js
+node ./lambda/custom/persist/create-database.js

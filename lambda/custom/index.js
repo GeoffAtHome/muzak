@@ -12,7 +12,7 @@ const Dispatcher = require("./dispatcher");
 
 // Configuration
 const config = require("./config");
-var server = require('./ssh-tunnel')();
+var server = require('./ssh-tunnel')(config);
 
 /**
  * Route the incoming request based on type (LaunchRequest, IntentRequest,

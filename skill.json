@@ -1,0 +1,24 @@
+{
+    "manifest": {
+        "publishingInformation": {
+            "locales": {
+                "en-GB": {
+                    "name": "Squeezebox"
+                }
+            },
+            "isAvailableWorldwide": true
+        },
+        "apis": {
+            "custom": {
+                "endpoint": {
+                    "sourceDir": "lambda\\custom"
+                },
+                "interfaces": [{
+                    "type": "AUDIO_PLAYER"
+                }]
+            }
+        },
+        "manifestVersion": "1.0",
+        "permissions": []
+    }
+}
