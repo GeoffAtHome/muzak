@@ -5,8 +5,8 @@
 
 //  Integration with the squeeze server
 
-var alexa = require("../index.js");
-var albums = require("../info/album");
+var alexa = require("../lambda/custom/index.js");
+var albums = require("../lambda/custom/info/album");
 var repeat = require("./repeat.fixture.json");
 var pause = require("./pause.fixture.json");
 var resume = require("./resume.fixture.json");
