@@ -15,7 +15,7 @@ const fs = require('fs');
 const SqueezeServer = require('./../lambda/custom/node_modules/squeezenode-lordpengwin');
 
 // Configuration
-const config = require('./../config');
+const config = require('./../config.js');
 const defaultAssets = require('./default-assets.js');
 var server = require('./../lambda/custom/ssh-tunnel')(config);
 

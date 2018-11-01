@@ -16,7 +16,9 @@ class PlayPlaylist extends Intent {
         "use strict";
         console.log("In playPlaylist with intent %j", intent);
         var possibleSlots = ["Playlist", "Genre", "Artist", "Album", "Title"];
-        var intentSlots = _.mapKeys(_.get(intent, "slots"), (value, key) => { return key.charAt(0).toUpperCase() + key.toLowerCase().substring(1); });
+        var intentSlots = _.mapKeys(_.get(intent, "slots"), (value, key) => {
+            return key.charAt(0).toUpperCase() + key.toLowerCase().substring(1);
+        });
         var values = {};
 
         console.log("Map keys done");
@@ -41,7 +43,7 @@ class PlayPlaylist extends Intent {
         }
 
         console.log("before reply");
-        var reply = function(result) {
+        var reply = function (result) {
             // Format the text of the response based on what sort of playlist was requested
             var text = "Whoops, something went wrong.";
             if (_.get(result, "ok")) {
@@ -81,7 +83,7 @@ class PlayPlaylist extends Intent {
                 }
             }
             if (text !== "") {
-                callback(session.attributes, Utils.buildSpeechResponse("Play Playlist", text, null, false));
+                callback(session.attributes, Utils.buildSpeechResponse("Play Playlist", text, null, true));
             } else {
                 callback(session.attributes, Utils.buildSpeechResponse("Play Playlist", "You request was not found in the library. Please try again", null, false));
             }
@@ -105,10 +107,8 @@ class PlayPlaylist extends Intent {
                     player.callMethod({
                         method: 'playlist',
                         params: [
-                            'loadalbum',
-                            !values.Genre ? "*" : values.Genre, // LMS wants an asterisk if nothing if specified
-                            !values.Artist ? "*" : values.Artist,
-                            !values.Album ? "*" : values.Album
+                            'loadalbum', !values.Genre ? "*" : values.Genre, // LMS wants an asterisk if nothing if specified
+                            !values.Artist ? "*" : values.Artist, !values.Album ? "*" : values.Album
                         ]
                     }).then(reply);
                 }
