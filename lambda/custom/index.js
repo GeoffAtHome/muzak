@@ -11,7 +11,7 @@ const Utils = require("./utils");
 const Dispatcher = require("./dispatcher");
 
 // Configuration
-const config = require("./config");
+const config = require("./config.js");
 var server = require('./ssh-tunnel')(config);
 
 /**
@@ -26,27 +26,60 @@ exports.handler = function (event, context) {
 
         console.log("Event is %j", event);
 
-        if (event.session.new) {
+        // If this is a new session makesure we can talk to LMS otherise just give up.
+        if (event && event.session && event.session.new) {
             Dispatcher.onSessionStarted({
                 requestId: event.request.requestId
             }, event.session);
         }
 
-        if (event.request.type === "LaunchRequest") {
-            Dispatcher.onLaunch(event.request,
-                event.session,
-                function callback(sessionAttributes, speechResponse) {
-                    context.succeed(Utils.buildResponse(sessionAttributes, speechResponse));
-                });
-        } else if (event.request.type === "IntentRequest") {
-            Dispatcher.onIntent(event.request,
-                event.session,
-                function callback(sessionAttributes, speechResponse) {
-                    context.succeed(Utils.buildResponse(sessionAttributes, speechResponse));
-                });
-        } else if (event.request.type === "SessionEndedRequest") {
-            Dispatcher.onSessionEnded(event.request, event.session);
-            context.succeed();
+        // What have we been asked to do?
+        switch (event.request.type) {
+
+            case "LaunchRequest":
+                Dispatcher.onLaunch(event.request,
+                    event.session,
+                    function callback(sessionAttributes, speechResponse) {
+                        context.succeed(Utils.buildResponse(sessionAttributes, speechResponse));
+                    });
+                break;
+
+
+            case "IntentRequest":
+                Dispatcher.onIntent(event.request,
+                    event.session,
+                    function callback(sessionAttributes, speechResponse) {
+                        context.succeed(Utils.buildResponse(sessionAttributes, speechResponse));
+                    });
+                break;
+
+            case "SessionEndedRequest":
+                Dispatcher.onSessionEnded(event.request, event.session);
+                context.succeed();
+                break;
+
+            case "AudioPlayer.PlaybackStarted":
+                console.log("AudioPlayer.PlaybackStarted");
+                context.succeed();
+                break;
+
+            case "AudioPlayer.PlaybackNearlyFinished":
+                console.log("AudioPlayer.PlaybackNearlyFinished");
+                context.succeed();
+                break;
+
+            case "AudioPlayer.PlaybackStopped":
+                console.log("AudioPlayer.PlaybackStopped");
+                Dispatcher.onIntent(event.request,
+                    event.session,
+                    function callback(sessionAttributes, speechResponse) {
+                        context.succeed(Utils.buildResponse(sessionAttributes, speechResponse));
+                    });
+                break;
+
+            default:
+                console.log("Unknow event request type: " + event.request.type);
+                return true;
         }
     } catch (e) {
         console.log("Caught exception %j", e);

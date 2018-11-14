@@ -18,17 +18,17 @@ class Dispatcher {
      * Called when the user launches the skill without specifying what they want. When this happens we go into a mode where
      * they can issue multiple requests
      *
-     * @param launchRequest The request
-     * @param session The current session
+     * @param eventRequest The request
+     * @param eventSession The current session
      * @param callback A callback used to return the result
      */
-    static onLaunch(launchRequest, session, callback) {
+    static onLaunch(eventRequest, eventSession, callback) {
         "use strict";
-        console.log("onLaunch requestId=" + launchRequest.requestId + ", sessionId=" + session.sessionId);
+        console.log("onLaunch requestId=" + eventRequest.requestId + ", sessionId=" + eventSession.sessionId);
 
         // Connect to the squeeze server and wait for it to finish its registration.  We do this to make sure that it is online.
         var squeezeserver = new SqueezeServer(config.squeezeserverURL, config.squeezeserverPort, config.squeezeServerUsername, config.squeezeServerPassword);
-        squeezeserver.on('register', function() {
+        squeezeserver.on('register', function () {
             console.log("SqueezeServer registered");
             Dispatcher.startInteractiveSession(callback);
         });
@@ -72,7 +72,7 @@ class Dispatcher {
 
         // Format the default response
 
-        callback(sessionAttributes, Utils.buildSpeechResponse(cardTitle, speechOutput, null, shouldEndSession));
+        callback(sessionAttributes, Utils.buildSpeechResponse(cardTitle, speechOutput, null, shouldEndSession, "start", null));
     }
 
     /**
@@ -88,7 +88,7 @@ class Dispatcher {
         var shouldEndSession = true;
 
         // Format the default response
-        callback(sessionAttributes, Utils.buildSpeechResponse(cardTitle, speechOutput, null, shouldEndSession));
+        callback(sessionAttributes, Utils.buildSpeechResponse(cardTitle, speechOutput, null, shouldEndSession, "close", null));
     }
 }
 

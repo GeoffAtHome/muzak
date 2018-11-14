@@ -337,8 +337,8 @@ context = {
 a = lookup("Money for Nothing");
 b = lookup("xyzzy");
 
-// alexa.handler(selectOurRoom, context);
-// alexa.handler(playPinkFloyd, context);
+alexa.handler(selectOurRoom, context);
+alexa.handler(playPinkFloyd, context);
 // alexa.handler(help, context);
 // alexa.handler(loopOn, context);
 // alexa.handler(pause, context);

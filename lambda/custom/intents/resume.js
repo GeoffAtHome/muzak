@@ -14,17 +14,17 @@ class Resume extends Intent {
         try {
             console.log("In resume with player %s", player.name);
             // Pause the player
-            player.resume(function(reply) {
+            player.resume(function (reply) {
                 if (reply.ok) {
-                    callback(session.attributes, Utils.buildSpeechResponse("Resume Player", "Resume " + player.name + " squeezebox", null, session.new));
+                    callback(session.attributes, Utils.buildSpeechResponse("Resume Player", "Resume " + player.name + " squeezebox", null, session.new, "resume", player));
                 } else {
                     console.log("Reply %j", reply);
-                    callback(session.attributes, Utils.buildSpeechResponse("Resume Player", "Failed to resume player " + player.name + " squeezebox", null, true));
+                    callback(session.attributes, Utils.buildSpeechResponse("Resume Player", "Failed to resume player " + player.name + " squeezebox", null, true, "error", player));
                 }
             });
         } catch (ex) {
             console.log("Caught exception in resume %j", ex);
-            callback(session.attributes, Utils.buildSpeechResponse("Resume Player", "Caught Exception", null, true));
+            callback(session.attributes, Utils.buildSpeechResponse("Resume Player", "Caught Exception", null, true, "error", player));
         }
     }
 }

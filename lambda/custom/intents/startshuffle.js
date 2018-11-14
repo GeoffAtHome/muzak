@@ -14,16 +14,16 @@ class StartShuffle extends Intent {
         console.log("In randomizePlayer with player %s", player.name);
         try {
             // Start and randomize the player
-            player.startShuffle(function(reply) {
+            player.startShuffle(function (reply) {
                 if (reply.ok) {
-                    callback(session.attributes, Utils.buildSpeechResponse("Shuffling Player", "Shuffling. Playing " + player.name + " squeezebox", null, session.new));
+                    callback(session.attributes, Utils.buildSpeechResponse("Shuffling Player", "Shuffling. Playing " + player.name + " squeezebox", null, session.new, "shuffle", player));
                 } else {
-                    callback(session.attributes, Utils.buildSpeechResponse("Shuffling Player", "Failed to shuffle and play " + player.name + " squeezebox", null, true));
+                    callback(session.attributes, Utils.buildSpeechResponse("Shuffling Player", "Failed to shuffle and play " + player.name + " squeezebox", null, true, "error", player));
                 }
             });
         } catch (ex) {
             console.log("Caught exception in randomizePlayer %j", ex);
-            callback(session.attributes, Utils.buildSpeechResponse("Shuffling Player", "Caught Exception", null, true));
+            callback(session.attributes, Utils.buildSpeechResponse("Shuffling Player", "Caught Exception", null, true, "error", player));
         }
     }
 }

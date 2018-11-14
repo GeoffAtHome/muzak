@@ -24,17 +24,17 @@ class SetVolume extends Intent {
             console.log("In setPlayerVolume with volume:" + volume);
 
             // Set the volume on the player
-            player.setVolume(volume, function(reply) {
+            player.setVolume(volume, function (reply) {
                 if (reply.ok) {
-                    callback(session.attributes, Utils.buildSpeechResponse("Set Player Volume", "Player " + player.name + " set to volume " + volume, null, session.new));
+                    callback(session.attributes, Utils.buildSpeechResponse("Set Player Volume", "Player " + player.name + " set to volume " + volume, null, session.new, "setvolume", player));
                 } else {
                     console.log("Failed to set volume %j", reply);
-                    callback(session.attributes, Utils.buildSpeechResponse("Set Player Volume", "Failed to set player volume", null, true));
+                    callback(session.attributes, Utils.buildSpeechResponse("Set Player Volume", "Failed to set player volume", null, true, "error", player));
                 }
             });
         } catch (ex) {
             console.log("Caught exception in setPlayerVolume %j", ex);
-            callback(session.attributes, Utils.buildSpeechResponse("Set Player", "Caught Exception", null, true));
+            callback(session.attributes, Utils.buildSpeechResponse("Set Player", "Caught Exception", null, true, "error", player));
         }
     }
 }

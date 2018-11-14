@@ -14,17 +14,17 @@ class Pause extends Intent {
         try {
             console.log("In pausePlayer with player %s", player.name);
             // Pause the player
-            player.pause(function(reply) {
+            player.pause(function (reply) {
                 if (reply.ok) {
-                    callback(session.attributes, Utils.buildSpeechResponse("Pause Player", "Paused " + player.name + " squeezebox", null, session.new));
+                    callback(session.attributes, Utils.buildSpeechResponse("Pause Player", "Paused " + player.name + " squeezebox", null, session.new, "pause", player));
                 } else {
                     console.log("Reply %j", reply);
-                    callback(session.attributes, Utils.buildSpeechResponse("Pause Player", "Failed to pause player " + player.name + " squeezebox", null, true));
+                    callback(session.attributes, Utils.buildSpeechResponse("Pause Player", "Failed to pause player " + player.name + " squeezebox", null, true, "error", player));
                 }
             });
         } catch (ex) {
             console.log("Caught exception in pausePlayer %j", ex);
-            callback(session.attributes, Utils.buildSpeechResponse("Pause Player", "Caught Exception", null, true));
+            callback(session.attributes, Utils.buildSpeechResponse("Pause Player", "Caught Exception", null, true, "error", player));
         }
     }
 }

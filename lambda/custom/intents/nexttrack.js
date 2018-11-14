@@ -15,17 +15,17 @@ class NextTrack extends Intent {
             console.log("In nextTrack with player %s", player.name);
 
             // Skip forward 1 track on the player
-            player.next(function(reply) {
+            player.next(function (reply) {
                 if (reply.ok) {
-                    callback(session.attributes, Utils.buildSpeechResponse("Skip Forward", "Skipped forward " + player.name + " squeezebox", null, session.new));
+                    callback(session.attributes, Utils.buildSpeechResponse("Skip Forward", "Skipped forward " + player.name + " squeezebox", null, session.new, "nexttrack", player));
                 } else {
                     console.log("Reply %j", reply);
-                    callback(session.attributes, Utils.buildSpeechResponse("Skip Forward", "Failed to skip forward player " + player.name + " squeezebox", null, true));
+                    callback(session.attributes, Utils.buildSpeechResponse("Skip Forward", "Failed to skip forward player " + player.name + " squeezebox", null, true, "error", player));
                 }
             });
         } catch (ex) {
             console.log("Caught exception in nextTrack %j", ex);
-            callback(session.attributes, Utils.buildSpeechResponse("Skip Forward", "Caught Exception", null, true));
+            callback(session.attributes, Utils.buildSpeechResponse("Skip Forward", "Caught Exception", null, true, "error", player));
         }
     }
 }

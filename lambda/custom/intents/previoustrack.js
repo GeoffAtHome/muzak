@@ -16,18 +16,18 @@ class PreviousTrack extends Intent {
             console.log("In previousTrack with player %s", player.name);
 
             // Skip back 1 track on the player
-            player.previous(function(reply) {
+            player.previous(function (reply) {
                 if (reply.ok) {
-                    callback(session.attributes, Utils.buildSpeechResponse("Skip Back", "Skipped back " + player.name + " squeezebox", null, session.new));
+                    callback(session.attributes, Utils.buildSpeechResponse("Skip Back", "Skipped back " + player.name + " squeezebox", null, session.new, "previoustrack", player));
                 } else {
                     console.log("Reply %j", reply);
-                    callback(session.attributes, Utils.buildSpeechResponse("Skip Back", "Failed to skip back player " + player.name + " squeezebox", null, true));
+                    callback(session.attributes, Utils.buildSpeechResponse("Skip Back", "Failed to skip back player " + player.name + " squeezebox", null, true, "error", player));
                 }
             });
 
         } catch (ex) {
             console.log("Caught exception in previousTrack %j", ex);
-            callback(session.attributes, Utils.buildSpeechResponse("Skip Back", "Caught Exception", null, true));
+            callback(session.attributes, Utils.buildSpeechResponse("Skip Back", "Caught Exception", null, true, "error", player));
         }
     }
 }

@@ -1,54 +1,58 @@
 const SqueezeServer = require("squeezenode-lordpengwin");
-const config = require("../config");
-const Utils = require("../utils");
-const Persist = require("../persist/persist");
+const config = require("../config.js");
+const Utils = require("../utils.js");
+const Persist = require("../persist/persist.js");
 
-const Intent = require("./intent");
-const ChangeVolume = require("./changevolume");
-const Help = require("./help");
-const Name = require("./name");
-const NextTrack = require("./nexttrack");
-const Pause = require("./pause");
-const PlayPlaylist = require("./play-playlist");
-const PreviousTrack = require("./previoustrack");
-const Randomize = require("./randomize");
-const Repeat = require("./repeat");
-const Resume = require("./resume");
-const Select = require("./select");
-const SetVolume = require("./setvolume");
-const Start = require("./start");
-const StartShuffle = require("./startshuffle");
-const Stop = require("./stop");
-const StopShuffle = require("./stopshuffle");
-const Sync = require("./sync");
-const Unsync = require("./unsync");
-const WhatsPlaying = require("./whatsplaying");
+const Intent = require("./intent.js");
+const ChangeVolume = require("./changevolume.js");
+const Help = require("./help.js");
+const Name = require("./name.js");
+const NextTrack = require("./nexttrack.js");
+const Pause = require("./pause.js");
+const PlayPlaylist = require("./play-playlist.js");
+const PreviousTrack = require("./previoustrack.js");
+const Randomize = require("./randomize.js");
+const Repeat = require("./repeat.js");
+const Resume = require("./resume.js");
+const Select = require("./select.js");
+const SetVolume = require("./setvolume.js");
+const Start = require("./start.js");
+const StartShuffle = require("./startshuffle.js");
+const Stop = require("./stop.js");
+const StopShuffle = require("./stopshuffle.js");
+const Sync = require("./sync.js");
+const Unsync = require("./unsync.js");
+const WhatsPlaying = require("./whatsplaying.js");
 
 class IntentMap {
     /**
      * Called when the user specifies an intent for this skill.
      *
-     * @param intentRequest The full request
+     * @param eventRequest The full request
      * @param session The current session
      * @param callback A callback used to return results
      */
 
-    static onIntent(intentRequest, session, callback) {
+    static onIntent(eventRequest, session, callback) {
         "use strict";
-        console.log("onIntent requestId=" + intentRequest.requestId + ", sessionId=" + session.sessionId);
+        console.log("onIntent requestId=" + eventRequest.requestId + ", sessionId=" + session.sessionId);
 
-        // Check for a Close intent
-        switch (intentRequest.intent.intentName) {
-            case "Close":
-                closeInteractiveSession(callback);
-                return;
+        // Check for Audio directives
+        if (eventRequest.type !== "AudioPlayer.PlaybackStopped") {
 
-            case "AMAZON.HelpIntent":
-                Help(session, callback);
-                return;
+            // Check for a Close intent
+            switch (eventRequest.intent.intentName) {
+                case "Close":
+                    closeInteractiveSession(callback);
+                    return;
 
-            default:
-                break;
+                case "AMAZON.HelpIntent":
+                    Help(session, callback);
+                    return;
+
+                default:
+                    break;
+            }
         }
 
         // Connect to the squeeze server and wait for it to finish its registration
@@ -61,9 +65,10 @@ class IntentMap {
                 if (reply.ok) {
                     console.log("getPlayers: %j", reply);
                     // We will get the persisted player name before dispatching the intent as all these intents required the player name
-                    Persist.retrieve().then(result => IntentMap.dispatchIntent(squeezeserver, reply.result, intentRequest.intent, session, result.Items[0].Value.S, callback)).catch(err => IntentMap.dispatchIntent(squeezeserver, reply.result, intentRequest.intent, session, "", callback));
+                    console.log("Calling Persits.retrive");
+                    Persist.retrieve().then(result => IntentMap.dispatchIntent(squeezeserver, reply.result, eventRequest, session, result.Items[0].Value.S, callback)).catch(err => IntentMap.dispatchIntent(squeezeserver, reply.result, eventRequest, session, "", callback));
                 } else {
-                    callback(session.attributes, Utils.buildSpeechResponse("Get Players", "Failed to get list of players", null, true));
+                    callback(session.attributes, Utils.buildSpeechResponse("Get Players", "Failed to get list of players", null, true, "Error", null));
                 }
             });
         });
@@ -79,14 +84,17 @@ class IntentMap {
      * @param callback The callback to use to return the result
      */
 
-    static dispatchIntent(squeezeserver, players, intent, session, lastname, callback) {
+    static dispatchIntent(squeezeserver, players, eventRequest, session, lastname, callback) {
         "use strict";
-        var intentName = intent.name;
-        console.log("Got intent: %j", intent);
+        var intentName = "AMAZON.StopIntent";
+        if (eventRequest.type !== "AudioPlayer.PlaybackStopped") {
+            intentName = eventRequest.intent.name;
+        }
+        console.log("Got intent: %j", intentName);
         console.log("Session is %j", session);
-        switch (intent) {
+        switch (intentName) {
             case "SyncPlayers":
-                syncPlayers(squeezeserver, players, intent, session, lastname, callback);
+                syncPlayers(squeezeserver, players, eventRequest.intent, session, lastname, callback);
                 break;
 
             case "NamePlayers":
@@ -94,14 +102,19 @@ class IntentMap {
                 break;
 
             default:
-                this.dispatchSecondaryIntent(squeezeserver, players, intent, session, lastname, callback);
+                this.dispatchSecondaryIntent(squeezeserver, players, eventRequest, session, lastname, callback);
                 break;
         }
     }
 
-    static dispatchSecondaryIntent(squeezeserver, players, intent, session, lastname, callback) {
+    static dispatchSecondaryIntent(squeezeserver, players, eventRequest, session, lastname, callback) {
         "use strict";
-        var intentName = intent.name;
+        var intent = eventRequest.intent;
+        var intentName = "AMAZON.StopIntent";
+        if (eventRequest.type !== "AudioPlayer.PlaybackStopped") {
+            intentName = intent.name;
+        }
+
 
         // Get the name of the player to look-up from the intent slot if present
         var name = ((typeof intent.slots !== "undefined") && (typeof intent.slots.Player !== "undefined") && (typeof intent.slots.Player.value !== "undefined") && (intent.slots.Player.value !== null) ? intent.slots.Player.value :
@@ -112,15 +125,16 @@ class IntentMap {
         if (player === null || player === undefined) {
 
             // Couldn't find the player, return an error response
-
             console.log("Player not found: " + name);
-            callback(session.attributes, Utils.buildSpeechResponse(intentName, "Player not found", null, session.new));
+            callback(session.attributes, Utils.buildSpeechResponse(intentName, "Player not found", null, session.new, "error", null));
 
         } else {
 
+            var playOnAlexa = config.alexaplayers.indexOf(player) != -1;
             console.log("Player is " + player);
             session.attributes = {
-                player: player.name.toLowerCase()
+                player: player.name.toLowerCase(),
+                playonalexa: playOnAlexa
             };
 
             // Call the target intent
@@ -211,7 +225,7 @@ class IntentMap {
                     break;
 
                 default:
-                    callback(session.attributes, Utils.buildSpeechResponse("Invalid Request", intentName + " is not a valid request", null, session.new));
+                    callback(session.attributes, Utils.buildSpeechResponse("Invalid Request", intentName + " is not a valid request", null, session.new, "error", player));
                     throw " intent";
             }
         }

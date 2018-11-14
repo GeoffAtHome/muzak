@@ -13,17 +13,17 @@ class Unsync extends Intent {
         console.log("In un-sync with player %s", player.name);
         try {
             // Un-synchronize the player
-            player.unSync(function(reply) {
+            player.unSync(function (reply) {
                 if (reply.ok) {
-                    callback(session.attributes, Utils.buildSpeechResponse("Un-sync Player", "Player " + player.name + " un-synced", null, session.new));
+                    callback(session.attributes, Utils.buildSpeechResponse("Un-sync Player", "Player " + player.name + " un-synced", null, session.new, "unsync", player));
                 } else {
                     console.log("Failed to sync %j", reply);
-                    callback(session.attributes, Utils.buildSpeechResponse("Un-sync Player", "Failed to un-sync player " + player.name, null, true));
+                    callback(session.attributes, Utils.buildSpeechResponse("Un-sync Player", "Failed to un-sync player " + player.name, null, true, "error", player));
                 }
             });
         } catch (ex) {
             console.log("Caught exception in un-syncPlayer %j", ex);
-            callback(session.attributes, Utils.buildSpeechResponse("Un-sync Player", "Caught Exception", null, true));
+            callback(session.attributes, Utils.buildSpeechResponse("Un-sync Player", "Caught Exception", null, true, "error", player));
         }
     }
 }

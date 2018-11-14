@@ -14,16 +14,16 @@ class Start extends Intent {
         console.log("In start with player %s", player.name);
         try {
             // Start the player
-            player.play(function(reply) {
+            player.play(function (reply) {
                 if (reply.ok) {
-                    callback(session.attributes, Utils.buildSpeechResponse("Start Player", "Playing " + player.name + " squeezebox", null, session.new));
+                    callback(session.attributes, Utils.buildSpeechResponse("Start Player", "Playing " + player.name + " squeezebox", null, session.new, "play", player));
                 } else {
-                    callback(session.attributes, Utils.buildSpeechResponse("Start Player", "Failed to start player " + player.name + " squeezebox", null, true));
+                    callback(session.attributes, Utils.buildSpeechResponse("Start Player", "Failed to start player " + player.name + " squeezebox", null, true, "error", player));
                 }
             });
         } catch (ex) {
             console.log("Caught exception in startPlayer %j", ex);
-            callback(session.attributes, Utils.buildSpeechResponse("Start Player", "Caught Exception", null, true));
+            callback(session.attributes, Utils.buildSpeechResponse("Start Player", "Caught Exception", null, true, "error", player));
         }
     }
 }

@@ -14,7 +14,7 @@ class Repeat extends Intent {
         "use strict";
         console.log("In repeat with intent %j", true);
         console.log("before reply");
-        var reply = function(result) {
+        var reply = function (result) {
             var text = "Whoops, something went wrong.";
             if (_.get(result, "ok")) {
                 text = "Repeat turned ";
@@ -24,7 +24,7 @@ class Repeat extends Intent {
                     text += "off";
                 }
             }
-            callback(session.attributes, Utils.buildSpeechResponse("Repeat Playlist", text, null, false));
+            callback(session.attributes, Utils.buildSpeechResponse("Repeat Playlist", text, null, false, "repeat", player));
         };
 
         if (repeat == true) {

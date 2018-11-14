@@ -28,7 +28,7 @@ class Help extends Intent {
             "what are my player names, " +
             "exit, " +
             "help.",
-            "What do you want to do?", false));
+            "What do you want to do?", false, "help", null));
     }
 }
 

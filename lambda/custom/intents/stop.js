@@ -13,10 +13,10 @@ class Stop extends Intent {
         "use strict";
         try {
             console.log("In stop with player %s", player.name);
-            callback(session.attributes, Utils.buildSpeechResponse("Stop", "OK", null, true));
+            callback(session.attributes, Utils.buildSpeechResponse("Stop", "OK", null, true, "stop", player));
         } catch (ex) {
             console.log("Caught exception in stopPlayer %j", ex);
-            callback(session.attributes, Utils.buildSpeechResponse("Stop Player", "Caught Exception", null, true));
+            callback(session.attributes, Utils.buildSpeechResponse("Stop Player", "Caught Exception", null, true, "error", player));
         }
     }
 }

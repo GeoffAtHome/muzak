@@ -83,9 +83,9 @@ class PlayPlaylist extends Intent {
                 }
             }
             if (text !== "") {
-                callback(session.attributes, Utils.buildSpeechResponse("Play Playlist", text, null, true));
+                callback(session.attributes, Utils.buildSpeechResponse("Play Playlist", text, null, true, "play", player));
             } else {
-                callback(session.attributes, Utils.buildSpeechResponse("Play Playlist", "You request was not found in the library. Please try again", null, false));
+                callback(session.attributes, Utils.buildSpeechResponse("Play Playlist", "You request was not found in the library. Please try again", null, false, "error", player));
             }
         };
 

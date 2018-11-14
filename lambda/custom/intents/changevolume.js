@@ -15,18 +15,18 @@ class ChangeVolume extends Intent {
         console.log("In  Change Volume with player %s", player.name);
         try {
             // Get the volume of the player
-            player.getVolume(function(reply) {
+            player.getVolume(function (reply) {
                 if (reply.ok) {
                     var volume = Number(reply.result);
                     setPlayerVolume(player, volume + delta, session, callback);
                 } else {
-                    callback(session.attributes, Utils.buildSpeechResponse("Get Player Volume", "Failed to get volume for player " + player.name, null, true));
+                    callback(session.attributes, Utils.buildSpeechResponse("Get Player Volume", "Failed to get volume for player " + player.name, null, true, "changeVolume", player));
                 }
             });
 
         } catch (ex) {
             console.log("Caught exception in stopPlayer %j", ex);
-            callback(session.attributes, Utils.buildSpeechResponse("Get Player Volume", "Caught Exception", null, true));
+            callback(session.attributes, Utils.buildSpeechResponse("Get Player Volume", "Caught Exception", null, true, "Error", player));
         }
     }
 }

@@ -24,7 +24,7 @@ class Name extends Intent {
             }
             // Report back the player count and individual names
             if (playerNames === null) {
-                callback(session.attributes, Utils.buildSpeechResponse("Name Players", "There are no squeezeboxes currently in your system", null, session.new));
+                callback(session.attributes, Utils.buildSpeechResponse("Name Players", "There are no squeezeboxes currently in your system", null, session.new, "error", null));
             } else {
                 var singlePlural;
                 if (numPlayers > 1) {
@@ -32,11 +32,11 @@ class Name extends Intent {
                 } else {
                     singlePlural = " squeezebox. ";
                 }
-                callback(session.attributes, Utils.buildSpeechResponse("Name Players", "You have " + numPlayers + singlePlural + playerNames, null, session.new));
+                callback(session.attributes, Utils.buildSpeechResponse("Name Players", "You have " + numPlayers + singlePlural + playerNames, null, session.new, "nameplayers", null));
             }
         } catch (ex) {
             console.log("Caught exception while reporting player count and names", ex);
-            callback(session.attributes, Utils.buildSpeechResponse("Name Players", "Caught exception while reporting squeezebox names", null, true));
+            callback(session.attributes, Utils.buildSpeechResponse("Name Players", "Caught exception while reporting squeezebox names", null, true, "error", null));
         }
     }
 }

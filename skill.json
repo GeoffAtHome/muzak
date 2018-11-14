@@ -3,15 +3,32 @@
         "publishingInformation": {
             "locales": {
                 "en-GB": {
-                    "name": "Squeezebox"
+                    "summary": "An Alexa audio streaming skill.",
+                    "examplePhrases": [
+                        "Alexa, open Audio Steam",
+                        "Alexa, play Audio Steam",
+                        "Alexa, ask Audio Steam to play"
+                    ],
+                    "keywords": [
+                        "audio streaming",
+                        "music",
+                        "live music"
+                    ],
+                    "name": "audio-stream",
+                    "description": "An Alexa audio streaming skill.",
+                    "smallIconUri": "https://s3.amazonaws.com/cdn.dabblelab.com/img/audiostream-starter-108x108.png",
+                    "largeIconUri": "https://s3.amazonaws.com/cdn.dabblelab.com/img/audiostream-starter-512x512.png"
                 }
             },
-            "isAvailableWorldwide": true
+            "isAvailableWorldwide": false,
+            "testingInstructions": "No special instructions",
+            "category": "STREAMING_SERVICE",
+            "distributionCountries": []
         },
         "apis": {
             "custom": {
                 "endpoint": {
-                    "sourceDir": "lambda\\custom"
+                    "sourceDir": "lambda/custom"
                 },
                 "interfaces": [{
                     "type": "AUDIO_PLAYER"
@@ -19,6 +36,19 @@
             }
         },
         "manifestVersion": "1.0",
-        "permissions": []
+        "permissions": [],
+        "privacyAndCompliance": {
+            "allowsPurchases": false,
+            "locales": {
+                "en-GB": {
+                    "termsOfUseUrl": "http://dabblelab.com/terms",
+                    "privacyPolicyUrl": "http://dabblelab.com/privacy"
+                }
+            },
+            "isExportCompliant": true,
+            "containsAds": false,
+            "isChildDirected": false,
+            "usesPersonalInfo": false
+        }
     }
 }

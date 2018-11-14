@@ -25,7 +25,7 @@ class Intent {
 
             // NOTE: For some reason squeezeserver.players[] is empty but you can still reference values in it. I think it
             //       is a weird javascript timing thing
-            let player = players.filter(pl => pl.name.toLowerCase() === name);
+            let player = players.filter(pl => pl.name.toLowerCase() === name.toLowerCase());
 
             if (player.length == 1) {
                 // store the name for future use

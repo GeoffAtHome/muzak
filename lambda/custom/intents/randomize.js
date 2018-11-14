@@ -16,17 +16,17 @@ class Randomize extends Intent {
 
         try {
             // Start and randomize the player
-            player.randomPlay("tracks", function(reply) {
+            player.randomPlay("tracks", function (reply) {
                 if (reply.ok) {
-                    callback(session.attributes, Utils.buildSpeechResponse("Randomizing Player", "Randomizing. Playing " + player.name + " squeezebox", null, session.new));
+                    callback(session.attributes, Utils.buildSpeechResponse("Randomizing Player", "Randomizing. Playing " + player.name + " squeezebox", null, session.new, "randomplay", player));
                 } else {
-                    callback(session.attributes, Utils.buildSpeechResponse("Randomizing Player", "Failed to randomize and play " + player.name + " squeezebox", null, true));
+                    callback(session.attributes, Utils.buildSpeechResponse("Randomizing Player", "Failed to randomize and play " + player.name + " squeezebox", null, true, "error", player));
                 }
             });
 
         } catch (ex) {
             console.log("Caught exception in randomizePlayer %j", ex);
-            callback(session.attributes, Utils.buildSpeechResponse("Randomize Player", "Caught Exception", null, true));
+            callback(session.attributes, Utils.buildSpeechResponse("Randomize Player", "Caught Exception", null, true, "error", player));
         }
     }
 }

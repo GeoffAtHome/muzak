@@ -12,7 +12,7 @@ class Select extends Intent {
     static select(player, session, callback) {
         // The player is already selected
         "use strict";
-        callback(session.attributes, Utils.buildSpeechResponse("Select Player", "Selected player " + player.name, null, false));
+        callback(session.attributes, Utils.buildSpeechResponse("Select Player", "Selected player " + player.name, null, false, "selectplayer", player));
     }
 }
 
