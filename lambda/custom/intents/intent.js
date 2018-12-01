@@ -10,6 +10,7 @@ class Intent {
      */
     static findPlayerObject(squeezeserver, players, name, lastname) {
         const Persist = require("../persist/persist");
+        console.log("Looking for play:'" + name + "'");
 
         if (players) {
             // If we don't have a name try and get it from the database

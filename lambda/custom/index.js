@@ -59,22 +59,11 @@ exports.handler = function (event, context) {
                 break;
 
             case "AudioPlayer.PlaybackStarted":
-                console.log("AudioPlayer.PlaybackStarted");
-                context.succeed();
-                break;
-
-            case "AudioPlayer.PlaybackNearlyFinished":
-                console.log("AudioPlayer.PlaybackNearlyFinished");
-                context.succeed();
-                break;
-
+            case "AudioPlayer.PlaybackFinished":
             case "AudioPlayer.PlaybackStopped":
-                console.log("AudioPlayer.PlaybackStopped");
-                Dispatcher.onIntent(event.request,
-                    event.session,
-                    function callback(sessionAttributes, speechResponse) {
-                        context.succeed(Utils.buildResponse(sessionAttributes, speechResponse));
-                    });
+            case "AudioPlayer.PlaybackNearlyFinished":
+            case "AudioPlayer.PlaybackFailed":
+                context.succeed(Utils.buildAudioResponse(event.request.type));
                 break;
 
             default:

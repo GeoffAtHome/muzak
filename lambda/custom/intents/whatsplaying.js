@@ -23,10 +23,10 @@ class WhatsPlaying extends Intent {
                             player.getAlbum(function (reply) {
                                 if (reply.ok) {
                                     var album = reply.result;
-                                    callback(session.attributes, Utils.buildSpeechResponse("What's Playing", "Player " + player.name + " is playing " + title + " by " + artist + " from " + album, null, session.new, "whatsplaying", player));
+                                    callback(session.attributes, Utils.buildSpeechResponse("What's Playing", "Player " + player.name + " is playing " + title + " by " + artist + " from " + album, null, true, "whatsplaying", player));
                                 } else {
                                     console.log("Failed to get album");
-                                    callback(session.attributes, Utils.buildSpeechResponse("What's Playing", "Player " + player.name + " is playing " + title + " by " + artist, null, session.new, "whatsplaying", player));
+                                    callback(session.attributes, Utils.buildSpeechResponse("What's Playing", "Player " + player.name + " is playing " + title + " by " + artist, null, true, "whatsplaying", player));
                                 }
                             });
                         } else {

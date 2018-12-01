@@ -90,6 +90,8 @@ class IntentMap {
         if (eventRequest.type !== "AudioPlayer.PlaybackStopped") {
             intentName = eventRequest.intent.name;
         }
+
+        console.log("Lastname: " + lastname);
         console.log("Got intent: %j", intentName);
         console.log("Session is %j", session);
         switch (intentName) {
@@ -133,7 +135,7 @@ class IntentMap {
             var playOnAlexa = config.alexaplayers.indexOf(player) != -1;
             console.log("Player is " + player);
             session.attributes = {
-                player: player.name.toLowerCase(),
+                player: player.name,
                 playonalexa: playOnAlexa
             };
 

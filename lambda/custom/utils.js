@@ -10,6 +10,8 @@ class Utils {
      * @param output The speech output
      * @param repromptText The prompt for more information
      * @param shouldEndSession A flag to end the session
+     * @param intentCall intent of call
+     * @param player player in use or null
      * @returns A formatted JSON object containing the response
      */
     static buildSpeechResponse(title, output, textToSpeak, shouldEndSession, intentCall, player) {
@@ -56,8 +58,6 @@ class Utils {
                 break;
             case "nexttrack":
                 break;
-            case "pause":
-                break;
             case "previoustrack":
                 break;
             case "randomplay":
@@ -102,6 +102,11 @@ class Utils {
                 }];
 
                 break;
+            case "pause":
+                response.directives = [{
+                    "type": "AudioPlayer.Stop"
+                }]
+                break;
             case "stop":
                 response.directives = [{
                     "type": "AudioPlayer.Stop"
@@ -141,6 +146,77 @@ class Utils {
             response: speechResponse
         };
     }
+
+    /**
+     * Return the response
+     *
+     * @param sessionAttributes The attributes for the current session
+     * @returns A formatted object for the response
+     */
+
+    static buildAudioResponse(eventRequestType) {
+        var response = {
+            version: "1.0",
+            response: {}
+        };
+
+        console.log(eventRequestType);
+
+        switch (eventRequestType) {
+            case "AudioPlayer.PlaybackStarted":
+                response.directives = [{
+                    "type": "AudioPlayer.Play",
+
+                    "playBehavior": "REPLACE_ALL",
+                    "audioItem": {
+                        "stream": {
+                            "token": "token1553",
+                            "url": config.streamURL,
+                            "offsetInMilliseconds": 0
+                        }
+                    }
+                }];
+                break;
+
+            case "AudioPlayer.PlaybackFinished":
+                response.directives = [{
+                    "type": "AudioPlayer.Stop"
+                }];
+                break;
+
+            case "AudioPlayer.PlaybackStopped":
+                response.directives = [{
+                    "type": "AudioPlayer.Stop"
+                }];
+                break;
+
+            case "AudioPlayer.PlaybackNearlyFinished":
+                response.directives = [{
+                    "type": "AudioPlayer.Play",
+
+                    "playBehavior": "REPLACE_ALL",
+                    "audioItem": {
+                        "stream": {
+                            "token": "token1553",
+                            "url": "https://music.soord.org.uk/stream.mp3",
+                            "offsetInMilliseconds": 0
+                        }
+                    }
+                }];
+                break;
+
+            case "AudioPlayer.PlaybackFailed":
+                response.directives = [{
+                    "type": "AudioPlayer.Stop"
+                }];
+                break;
+
+        }
+        console.log(response);
+
+        return response;
+    }
+
 }
 
 module.exports = Utils;

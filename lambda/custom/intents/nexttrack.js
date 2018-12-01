@@ -17,7 +17,7 @@ class NextTrack extends Intent {
             // Skip forward 1 track on the player
             player.next(function (reply) {
                 if (reply.ok) {
-                    callback(session.attributes, Utils.buildSpeechResponse("Skip Forward", "Skipped forward " + player.name + " squeezebox", null, session.new, "nexttrack", player));
+                    callback(session.attributes, Utils.buildSpeechResponse("Skip Forward", "Skipped forward " + player.name + " squeezebox", null, true, "nexttrack", player));
                 } else {
                     console.log("Reply %j", reply);
                     callback(session.attributes, Utils.buildSpeechResponse("Skip Forward", "Failed to skip forward player " + player.name + " squeezebox", null, true, "error", player));
