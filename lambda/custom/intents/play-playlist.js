@@ -1,4 +1,3 @@
-const _ = require("lodash");
 const Utils = require("../utils");
 const Info = require("../info/info");
 const Intent = require("./intent");
@@ -16,28 +15,26 @@ class PlayPlaylist extends Intent {
         "use strict";
         console.log("In playPlaylist with intent %j", intent);
         var possibleSlots = ["Playlist", "Genre", "Artist", "Album", "Title"];
-        var intentSlots = _.mapKeys(_.get(intent, "slots"), (value, key) => {
-            return key.charAt(0).toUpperCase() + key.toLowerCase().substring(1);
-        });
+        var intentSlots = intent.slots;
         var values = {};
 
         console.log("Map keys done");
 
         // Transform our slot data into a friendlier object.
-        for (let slotName in possibleSlots) {
-            switch (possibleSlots[slotName]) {
+        for (let slotName of possibleSlots) {
+            switch (slotName) {
                 case 'Artist':
                 case 'Album':
                 case 'Genre':
                 case 'Title':
-                case 'Playlist:':
-                    values[possibleSlots[slotName]] = Info(possibleSlots[slotName], _.get(intentSlots, possibleSlots[slotName] + ".value"));
+                case 'Playlist':
+                    if (intentSlots[slotName]) {
+                        values[slotName] = Info(slotName, intentSlots[slotName].resolutions);
+                        console.log(values[slotName]);
+                    }
                     break;
 
                 default:
-                    values[possibleSlots[slotName]] = _.startCase(
-                        _.get(intentSlots, possibleSlots[slotName] + ".value")
-                    );
                     break;
             }
         }
@@ -46,7 +43,7 @@ class PlayPlaylist extends Intent {
         var reply = function (result) {
             // Format the text of the response based on what sort of playlist was requested
             var text = "Whoops, something went wrong.";
-            if (_.get(result, "ok")) {
+            if (result && result.ok) {
                 // This is all gross and kludge-y, but w/e.
                 text = "Playing ";
                 if (values.playlist) {

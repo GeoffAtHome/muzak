@@ -124,6 +124,91 @@ var playEveryBreathYouTake = {
     "version": "1.0"
 };
 
+var playGorillaz = {
+    "version": "1.0",
+    "session": {
+        "new": true,
+        "sessionId": "amzn1.echo-api.session.6f7ec697-27cb-4d91-85e9-8061eeff4ef4",
+        "application": {
+            "applicationId": "amzn1.ask.skill.feb7d8c4-39bc-444c-9791-3d02346147cc"
+        },
+        "user": {
+            "userId": "amzn1.ask.account.AG75DJFEZ62NBYN7HZT6X4ELOVCQJJF6RWIMAXQR67JVCUFQ36ZUCGJJPBQ37FBAHJACX4QRWCH4ZXHHOJXO2XGFIBFRLFPSW4FIVLSGWXROJ5DZRVQSOYU5RN4T2BOVZJXQ2W4C3IZC7DJ53DM526NYCNATPY3FELDFXRZPGIYJS5K5C4I2OWLIIXV7UJ7FE3P446SQN7TB6FQ"
+        }
+    },
+    "context": {
+        "AudioPlayer": {
+            "offsetInMilliseconds": 1135532,
+            "token": "token1553",
+            "playerActivity": "STOPPED"
+        },
+        "System": {
+            "application": {
+                "applicationId": "amzn1.ask.skill.feb7d8c4-39bc-444c-9791-3d02346147cc"
+            },
+            "user": {
+                "userId": "amzn1.ask.account.AG75DJFEZ62NBYN7HZT6X4ELOVCQJJF6RWIMAXQR67JVCUFQ36ZUCGJJPBQ37FBAHJACX4QRWCH4ZXHHOJXO2XGFIBFRLFPSW4FIVLSGWXROJ5DZRVQSOYU5RN4T2BOVZJXQ2W4C3IZC7DJ53DM526NYCNATPY3FELDFXRZPGIYJS5K5C4I2OWLIIXV7UJ7FE3P446SQN7TB6FQ"
+            },
+            "device": {
+                "deviceId": "amzn1.ask.device.AFQ75V526AM63AVA2WZK43AZQBBLDZGZPIRNROPCFUWFSKHIBUJOLFQDNKD4TCZNZJ2SHF5ZG5YO35A6Q5WXC5OICGY2J2J6J2M6JT5CISJ5TU47N2X7Z6MEHGXXKG7QX23QJORLPCKXWHATP3AMP42V3SXA",
+                "supportedInterfaces": {
+                    "AudioPlayer": {}
+                }
+            },
+            "apiEndpoint": "https://api.eu.amazonalexa.com",
+            "apiAccessToken": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImtpZCI6IjEifQ.eyJhdWQiOiJodHRwczovL2FwaS5hbWF6b25hbGV4YS5jb20iLCJpc3MiOiJBbGV4YVNraWxsS2l0Iiwic3ViIjoiYW16bjEuYXNrLnNraWxsLmZlYjdkOGM0LTM5YmMtNDQ0Yy05NzkxLTNkMDIzNDYxNDdjYyIsImV4cCI6MTU0Mzc1OTYyMCwiaWF0IjoxNTQzNzU2MDIwLCJuYmYiOjE1NDM3NTYwMjAsInByaXZhdGVDbGFpbXMiOnsiY29uc2VudFRva2VuIjpudWxsLCJkZXZpY2VJZCI6ImFtem4xLmFzay5kZXZpY2UuQUZRNzVWNTI2QU02M0FWQTJXWks0M0FaUUJCTERaR1pQSVJOUk9QQ0ZVV0ZTS0hJQlVKT0xGUUROS0Q0VENaTlpKMlNIRjVaRzVZTzM1QTZRNVdYQzVPSUNHWTJKMko2SjJNNkpUNUNJU0o1VFU0N04yWDdaNk1FSEdYWEtHN1FYMjNRSk9STFBDS1hXSEFUUDNBTVA0MlYzU1hBIiwidXNlcklkIjoiYW16bjEuYXNrLmFjY291bnQuQUc3NURKRkVaNjJOQllON0haVDZYNEVMT1ZDUUpKRjZSV0lNQVhRUjY3SlZDVUZRMzZaVUNHSkpQQlEzN0ZCQUhKQUNYNFFSV0NINFpYSEhPSlhPMlhHRklCRlJMRlBTVzRGSVZMU0dXWFJPSjVEWlJWUVNPWVU1Uk40VDJCT1ZaSlhRMlc0QzNJWkM3REo1M0RNNTI2TllDTkFUUFkzRkVMREZYUlpQR0lZSlM1SzVDNEkyT1dMSUlYVjdVSjdGRTNQNDQ2U1FON1RCNkZRIn19.IScNRkrKHFv3yllHcn37wLybm4J5HlIWSs7ppyshxsANYYIYN7kau8rOiC4DtURhMpH1vX5_ndXVA4blhTZGVVBnHp4cyStb9TQbHSpLwtjT4IuqJ6T6WFFKxOW-cM9rh62XrEuygBV0kh3BZDadkEMS4R_IRlrvHDaIlIQxkzf-3GvbprK62znoypw91D79VgO4jp3tFV9Phrkfbv_fVbb8PJeMSskrWyov_3ukof20clJ19yWvTphj0kn3bsYSS_sTI7V0Rz9pkARhocy27kpP1WX1DHZQKiovmlcw3BWLTu6LllFFBbnJHRbFw6z-3_8ka9N9OHzjY_oTHCzScw"
+        }
+    },
+    "request": {
+        "type": "IntentRequest",
+        "requestId": "amzn1.echo-api.request.3f16831e-8b88-4993-862e-78d7b89f1f1f",
+        "timestamp": "2018-12-02T13:07:00Z",
+        "locale": "en-GB",
+        "intent": {
+            "name": "PlayPlaylist",
+            "confirmationStatus": "NONE",
+            "slots": {
+                "Artist": {
+                    "name": "Artist",
+                    "confirmationStatus": "NONE"
+                },
+                "Title": {
+                    "name": "Title",
+                    "confirmationStatus": "NONE"
+                },
+                "Album": {
+                    "name": "Album",
+                    "value": "Gorillaz",
+                    "resolutions": {
+                        "resolutionsPerAuthority": [{
+                            "authority": "amzn1.er-authority.echo-sdk.amzn1.ask.skill.feb7d8c4-39bc-444c-9791-3d02346147cc.ALBUM",
+                            "status": {
+                                "code": "ER_SUCCESS_MATCH"
+                            },
+                            "values": [{
+                                "value": {
+                                    "name": "gorillaz",
+                                    "id": "537"
+                                }
+                            }]
+                        }]
+                    },
+                    "confirmationStatus": "NONE",
+                    "source": "USER"
+                },
+                "Player": {
+                    "name": "Player",
+                    "confirmationStatus": "NONE"
+                },
+                "Genre": {
+                    "name": "Genre",
+                    "confirmationStatus": "NONE"
+                }
+            }
+        }
+    }
+};
+
 var playDarkSideOfTheMoon = {
     "session": {
         "sessionId": "SessionId.9ff46a93-d276-4fda-9e36-a60844f48c64",
@@ -338,7 +423,9 @@ a = lookup("Money for Nothing");
 b = lookup("xyzzy");
 
 alexa.handler(selectOurRoom, context);
-alexa.handler(playPinkFloyd, context);
+
+alexa.handler(playGorillaz, context);
+//alexa.handler(playPinkFloyd, context);
 // alexa.handler(help, context);
 // alexa.handler(loopOn, context);
 // alexa.handler(pause, context);

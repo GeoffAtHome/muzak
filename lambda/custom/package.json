@@ -6,7 +6,6 @@
   "dependencies": {
     "aws-sdk": "^2.162.0",
     "geoffAtHome": "git+https://github.com/geoffAtHome/squeezenode.git",
-    "lodash": "^4.17.4",
     "squeezenode-lordpengwin": "git+https://github.com/geoffAtHome/squeezenode.git",
     "tunnel-ssh": "^4.1.3"
   }

@@ -1,4 +1,3 @@
-const _ = require("lodash");
 const Utils = require("../utils");
 const Intent = require("./intent");
 
@@ -16,7 +15,7 @@ class Repeat extends Intent {
         console.log("before reply");
         var reply = function (result) {
             var text = "Whoops, something went wrong.";
-            if (_.get(result, "ok")) {
+            if (result && result.ok) {
                 text = "Repeat turned ";
                 if (repeat == true) {
                     text += "on";

@@ -19,6 +19,7 @@ class Utils {
         if (textToSpeak !== null) {
             repromptText = textToSpeak;
         }
+        console.log(player);
         let response = {
             outputSpeech: {
                 type: "PlainText",
