@@ -14,11 +14,9 @@ class PlayPlaylist extends Intent {
     static playPlaylist(player, intent, session, callback) {
         "use strict";
         console.log("In playPlaylist with intent %j", intent);
-        var possibleSlots = ["Playlist", "Genre", "Artist", "Album", "Title"];
-        var intentSlots = intent.slots;
-        var values = {};
-
-        console.log("Map keys done");
+        const possibleSlots = ["Playlist", "Genre", "Artist", "Album", "Title"];
+        const intentSlots = intent.slots;
+        let values = {};
 
         // Transform our slot data into a friendlier object.
         for (let slotName of possibleSlots) {
@@ -30,7 +28,6 @@ class PlayPlaylist extends Intent {
                 case 'Playlist':
                     if (intentSlots[slotName]) {
                         values[slotName] = Info(slotName, intentSlots[slotName].resolutions);
-                        console.log(values[slotName]);
                     }
                     break;
 
@@ -40,9 +37,9 @@ class PlayPlaylist extends Intent {
         }
 
         console.log("before reply");
-        var reply = function (result) {
+        const reply = function (result) {
             // Format the text of the response based on what sort of playlist was requested
-            var text = "Whoops, something went wrong.";
+            let text = "Whoops, something went wrong.";
             if (result && result.ok) {
                 // This is all gross and kludge-y, but w/e.
                 text = "Playing ";
