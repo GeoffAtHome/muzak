@@ -77,7 +77,7 @@ class Utils {
                     "audioItem": {
                         "stream": {
                             "token": "token1553",
-                            "url": "https://music.soord.org.uk/stream.mp3",
+                            "url": "https://music.soord.org.uk/silence.mp3",
                             "offsetInMilliseconds": 0
                         }
                     },
@@ -172,7 +172,7 @@ class Utils {
                     "audioItem": {
                         "stream": {
                             "token": "token1553",
-                            "url": config.streamURL,
+                            "url": "https://music.soord.org.uk/silence.mp3",
                             "offsetInMilliseconds": 0
                         }
                     }
@@ -199,7 +199,7 @@ class Utils {
                     "audioItem": {
                         "stream": {
                             "token": "token1553",
-                            "url": "https://music.soord.org.uk/stream.mp3",
+                            "url": "https://music.soord.org.uk/silence.mp3",
                             "offsetInMilliseconds": 0
                         }
                     }
