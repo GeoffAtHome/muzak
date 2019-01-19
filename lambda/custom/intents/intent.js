@@ -14,8 +14,8 @@ class Intent {
 
         if (players) {
             // If we don't have a name try and get it from the database
-            if (name != "") {
-                name = this.normalizePlayer(name);
+            if (name !== "") {
+                name = name.toLowerCase();
                 console.log("In findPlayerObject with " + name);
             } else {
                 name = lastname;
@@ -43,31 +43,6 @@ class Intent {
         }
         console.log("Player %s not found", name);
     }
-
-    /**
-     * Do any necessary clean up of player names
-     *
-     * @param playerName The name of the player to clean up
-     * @returns The normalized player name
-     */
-
-    static normalizePlayer(playerName) {
-
-        // protect against `playerName` being undefined
-        if (!playerName) {
-            playerName = '';
-        }
-
-
-        // After the switch to custom slots multi name players like living room became living-room. Revert the string back to what it was
-
-        playerName = playerName.replace("-", " ");
-        if (playerName.toLowerCase() == "livingroom")
-            playerName = "living room";
-
-        return playerName;
-    }
-
 }
 
 module.exports = Intent;

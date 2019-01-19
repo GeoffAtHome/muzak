@@ -17,9 +17,9 @@ class Name extends Intent {
             for (let pl in players) {
                 numPlayers = numPlayers + 1;
                 if (playerNames === null) {
-                    playerNames = this.normalizePlayer(players[pl].name.toLowerCase());
+                    playerNames = players[pl].name.toLowerCase();
                 } else {
-                    playerNames = playerNames + ". " + this.normalizePlayer(players[pl].name.toLowerCase());
+                    playerNames = playerNames + ". " + players[pl].name.toLowerCase();
                 }
             }
             // Report back the player count and individual names

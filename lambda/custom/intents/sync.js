@@ -31,7 +31,7 @@ class Sync extends Intent {
             };
             player2 = null;
             for (let pl in players) {
-                if (players[pl].name.toLowerCase() === this.normalizePlayer(intent.slots.SecondPlayer.value)) {
+                if (players[pl].name.toLowerCase() === intent.slots.SecondPlayer.value.toLowerCase()) {
                     player2 = players[pl];
                 }
             }
