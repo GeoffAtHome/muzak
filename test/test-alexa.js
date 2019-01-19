@@ -55,7 +55,30 @@ var selectOurRoom = {
             "slots": {
                 "Player": {
                     "name": "Player",
-                    "value": "our room"
+                    "value": "a room",
+                    "resolutions": {
+                        "resolutionsPerAuthority": [{
+                            "authority": "amzn1.er-authority.echo-sdk.amzn1.ask.skill.feb7d8c4-39bc-444c-9791-3d02346147cc.PLAYERS",
+                            "status": {
+                                "code": "ER_SUCCESS_MATCH"
+                            },
+                            "values": [{
+                                    "value": {
+                                        "name": "Our room",
+                                        "id": "0"
+                                    }
+                                },
+                                {
+                                    "value": {
+                                        "name": "Front room",
+                                        "id": "1"
+                                    }
+                                }
+                            ]
+                        }]
+                    },
+                    "confirmationStatus": "NONE",
+                    "source": "USER"
                 }
             }
         }
@@ -424,11 +447,11 @@ b = lookup("xyzzy");
 
 alexa.handler(selectOurRoom, context);
 
-alexa.handler(playGorillaz, context);
+// alexa.handler(playGorillaz, context);
 //alexa.handler(playPinkFloyd, context);
 // alexa.handler(help, context);
 // alexa.handler(loopOn, context);
 // alexa.handler(pause, context);
-alexa.handler(remotetest, context);
+// alexa.handler(remotetest, context);
 // alexa.handler(event, context);
 // alexa.handler(shuffle, context);

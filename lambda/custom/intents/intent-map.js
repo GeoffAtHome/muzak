@@ -96,11 +96,11 @@ class IntentMap {
         console.log("Session is %j", session);
         switch (intentName) {
             case "SyncPlayers":
-                syncPlayers(squeezeserver, players, eventRequest.intent, session, lastname, callback);
+                Sync(squeezeserver, players, eventRequest.intent, session, lastname, callback);
                 break;
 
             case "NamePlayers":
-                namePlayers(players, session, callback);
+                Name(players, session, callback);
                 break;
 
             default:
@@ -117,9 +117,15 @@ class IntentMap {
             intentName = intent.name;
         }
 
-
-        // Get the name of the player to look-up from the intent slot if present
-        var name = ((typeof intent.slots !== "undefined") && (typeof intent.slots.Player !== "undefined") && (typeof intent.slots.Player.value !== "undefined") && (intent.slots.Player.value !== null) ? intent.slots.Player.value :
+        // We are going to get the name from intent.slots.Player.resolutions.resolutionsPerAuthority[0].values[0].value.name
+        var name = (
+            (typeof intent.slots !== "undefined") &&
+            (typeof intent.slots.Player !== "undefined") &&
+            (typeof intent.slots.Player.resolutions !== "undefined") &&
+            (typeof intent.slots.Player.resolutions.resolutionsPerAuthority !== "undefined") &&
+            (typeof intent.slots.Player.resolutions.resolutionsPerAuthority[0].values !== "undefined") &&
+            (typeof intent.slots.Player.resolutions.resolutionsPerAuthority[0].values[0].value !== "undefined") &&
+            (typeof intent.slots.Player.resolutions.resolutionsPerAuthority[0].values[0].value.name !== null) ? intent.slots.Player.resolutions.resolutionsPerAuthority[0].values[0].value.name :
             (typeof session.attributes !== "undefined" ? session.attributes.player : ""));
 
         // Try to find the target player
