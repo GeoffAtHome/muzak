@@ -113,16 +113,6 @@ function dumpToFile(slot, reply, bundle) {
                 "values": getArray(result)
             };
             bundle.assets.interactionModel.languageModel.types.push(values);
-
-            // Dump out to speech assets
-            var dir = './lambda/custom/info/';
-
-            if (!fs.existsSync(dir)) {
-                fs.mkdirSync(dir);
-            }
-
-            var text = 'module.exports = ' + JSON.stringify(result, null, 2) + ';';
-            fs.writeFile(dir + slot + '.js', text, 'utf8', callback);
             resolve(reply);
         }
     );
@@ -143,9 +133,9 @@ function getArray(a) {
     let index = 0;
     for (let item of a) {
         if (typeof item == 'string') {
-            if (item != "") {
+            if (item != "" && item.length < 90) {
                 output.push({
-                    "id": index.toString(),
+                    "id": item.replace(/ /g, '%'),
                     "name": {
                         "value": item,
                         "synonyms": []
@@ -154,9 +144,9 @@ function getArray(a) {
                 index++;
             }
         } else {
-            if (item[0] != "") {
+            if (item[0] != "" & item[1].length < 90) {
                 output.push({
-                    "id": index.toString(),
+                    "id": item[1].replace(/ /g, '%'),
                     "name": {
                         "value": item[0],
                         "synonyms": []

@@ -7,12 +7,5 @@ models/
 
 
 # Do not preserve private config file
-config.js
 .ask/config
-lambda/custom/info/album.js
-lambda/custom/info/artist.js
-lambda/custom/info/genre.js
-lambda/custom/info/playlist.js
-lambda/custom/info/title.js
-
-config
+config.js

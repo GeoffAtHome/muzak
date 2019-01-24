@@ -1,7 +1,6 @@
 {
     "version": "0.2.0",
-    "configurations": [
-        {
+    "configurations": [{
             "type": "node",
             "request": "launch",
             "name": "Persist",
@@ -12,6 +11,12 @@
             "request": "launch",
             "name": "Test alexa",
             "program": "${workspaceFolder}/test/test-alexa.js"
+        },
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "Compare",
+            "program": "${workspaceFolder}/test/compare.js"
         },
         {
             "type": "node",
